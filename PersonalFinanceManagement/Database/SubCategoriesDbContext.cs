@@ -5,19 +5,19 @@ using System.Reflection;
 
 namespace PersonalFinanceManagement.Database
 {
-    public class CategoriesDbContext : DbContext
+    public class SubCategoriesDbContext : DbContext
     {
-        public DbSet<CategoryEntity> Categories { get; set; }
-       // public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<SubCategoryEntity> SubCategories { get; set; }
+        // public DbSet<Transaction> Transactions { get; set; }
         public string DbPath { get; }
 
-        public CategoriesDbContext()
+        public SubCategoriesDbContext()
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "categories.db");
+            DbPath = System.IO.Path.Join(path, "subcategories.db");
         }
-        public CategoriesDbContext(DbContextOptions options) : base(options)
+        public SubCategoriesDbContext(DbContextOptions options) : base(options)
         {
 
         }
@@ -26,12 +26,12 @@ namespace PersonalFinanceManagement.Database
         // The following configures EF to create a Sqlite database file in the
         // special "local" folder for your platform.
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite(@"Data Source=C:\Users\Da4e\source\repos\PersonalFinanceManagement\PersonalFinanceManagement\categories.db");
+            => options.UseSqlite(@"Data Source=C:\Users\Da4e\source\repos\PersonalFinanceManagement\PersonalFinanceManagement\subcategories.db");
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-           
             
+
             base.OnModelCreating(modelBuilder);
         }
 

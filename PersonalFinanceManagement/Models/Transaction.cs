@@ -110,7 +110,7 @@ namespace PersonalFinanceManagement.Models
         /// <value>Code of category. If literal it&#x27;s category, If number it is a sub category code.</value>
 
         [DataMember(Name = "catcode")]
-        [ForeignKey("Code")]
+        
         public string? Catcode { get; set; }
 
         /// <summary>
@@ -118,9 +118,9 @@ namespace PersonalFinanceManagement.Models
         /// </summary>
         /// <returns>String presentation of the object</returns>
         /// 
-        
-        [ForeignKey("Code")]
-        public List<Category> categories { get; set; }
+
+        [ForeignKey("Catcode")]
+        public virtual Category category { get; set; }
         public override string ToString()
         {
             var sb = new StringBuilder();

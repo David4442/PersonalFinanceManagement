@@ -49,8 +49,10 @@ namespace PersonalFinanceManagement.Models
         /// Parent code if subcategory
         /// </summary>
         /// <value>Parent code if subcategory</value>
-
+        
+        
         [DataMember(Name="parent-code")]
+        
         public string ParentCode { get; set; }
 
         /// <summary>

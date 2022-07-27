@@ -23,8 +23,8 @@ namespace PersonalFinanceManagement.Models
     /// <summary>
     /// List with support for paging
     /// </summary>
-    [DataContract]
-    public partial class TrPagedList<T>
+   
+    public  class TrPagedList<T>
     {
         public int TotalCount { get; set; }
 
