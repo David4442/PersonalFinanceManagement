@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonalFinanceManagement.Database;
 
@@ -10,9 +11,10 @@ using PersonalFinanceManagement.Database;
 namespace PersonalFinanceManagement.Migrations
 {
     [DbContext(typeof(TransactionsDbContext))]
-    partial class TransactionsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220722120432_UpdatedDB")]
+    partial class UpdatedDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.7");
@@ -27,9 +29,11 @@ namespace PersonalFinanceManagement.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<string>("BeneficiaryName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Catcode")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Currency")
@@ -51,7 +55,7 @@ namespace PersonalFinanceManagement.Migrations
                     b.Property<int>("Kind")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("Mcc")
+                    b.Property<int>("Mcc")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

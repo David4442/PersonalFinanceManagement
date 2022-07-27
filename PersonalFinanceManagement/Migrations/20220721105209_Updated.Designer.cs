@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonalFinanceManagement.Database;
 
@@ -10,39 +11,29 @@ using PersonalFinanceManagement.Database;
 namespace PersonalFinanceManagement.Migrations
 {
     [DbContext(typeof(TransactionsDbContext))]
-    partial class TransactionsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220721105209_Updated")]
+    partial class Updated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.7");
 
             modelBuilder.Entity("PersonalFinanceManagement.Models.Transaction", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("TransactionId")
                         .HasColumnType("TEXT");
 
-                    b.Property<double?>("Amount")
-                        .IsRequired()
+                    b.Property<float>("Amount")
                         .HasColumnType("REAL");
 
-                    b.Property<string>("BeneficiaryName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Catcode")
+                    b.Property<string>("Beneficiaryname")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Currency")
-                        .IsRequired()
-                        .HasMaxLength(3)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Date")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
+                    b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Direction")
@@ -54,7 +45,7 @@ namespace PersonalFinanceManagement.Migrations
                     b.Property<int?>("Mcc")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.HasKey("TransactionId");
 
                     b.ToTable("Transactions");
                 });

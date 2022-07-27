@@ -4,18 +4,19 @@ using System.Reflection;
 
 namespace PersonalFinanceManagement.Database
 {
-    public class TransactionsDbContext : DbContext
+    public class CategoriesDbContext : DbContext
     {
-        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Category> Categories { get; set; }
+       // public DbSet<Transaction> Transactions { get; set; }
         public string DbPath { get; }
 
-        public TransactionsDbContext()
+        public CategoriesDbContext()
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "transactions.db");
+            DbPath = System.IO.Path.Join(path, "categories.db");
         }
-        public TransactionsDbContext(DbContextOptions options) : base(options)
+        public CategoriesDbContext(DbContextOptions options) : base(options)
         {
 
         }
@@ -24,14 +25,15 @@ namespace PersonalFinanceManagement.Database
         // The following configures EF to create a Sqlite database file in the
         // special "local" folder for your platform.
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite(@"Data Source=C:\Users\Da4e\source\repos\PersonalFinanceManagement\PersonalFinanceManagement\transactions.db");
+            => options.UseSqlite(@"Data Source=C:\Users\Da4e\source\repos\PersonalFinanceManagement\PersonalFinanceManagement\categories.db");
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());  
-            modelBuilder.Entity<Transaction>().HasKey(t => t.Id);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.Entity<Category>().HasKey(c=>c.Code);
+            
             base.OnModelCreating(modelBuilder);
         }
-                
-        
+
+
     }
 }
