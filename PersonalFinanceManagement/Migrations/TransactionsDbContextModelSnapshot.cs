@@ -17,6 +17,104 @@ namespace PersonalFinanceManagement.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.7");
 
+            modelBuilder.Entity("PersonalFinanceManagement.Database.Entities.CategoryEntity", b =>
+                {
+                    b.Property<string>("Code")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ParentCode")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Code");
+
+                    b.ToTable("categories", (string)null);
+                });
+
+            modelBuilder.Entity("PersonalFinanceManagement.Database.Entities.SubCategoryEntity", b =>
+                {
+                    b.Property<string>("Code")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ParentCode")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Code");
+
+                    b.ToTable("subcategories", (string)null);
+                });
+
+            modelBuilder.Entity("PersonalFinanceManagement.Database.Entities.TransactionEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double?>("Amount")
+                        .IsRequired()
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("Beneficiaryname")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Catcode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Direction")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Kind")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("Mcc")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Catcode");
+
+                    b.ToTable("transactions", (string)null);
+                });
+
+            modelBuilder.Entity("PersonalFinanceManagement.Models.Category", b =>
+                {
+                    b.Property<string>("Code")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ParentCode")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Code");
+
+                    b.ToTable("Category");
+                });
+
             modelBuilder.Entity("PersonalFinanceManagement.Models.Transaction", b =>
                 {
                     b.Property<string>("Id")
@@ -56,7 +154,38 @@ namespace PersonalFinanceManagement.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Catcode");
+
                     b.ToTable("Transactions");
+                });
+
+            modelBuilder.Entity("PersonalFinanceManagement.Database.Entities.SubCategoryEntity", b =>
+                {
+                    b.HasOne("PersonalFinanceManagement.Models.Category", "category")
+                        .WithMany()
+                        .HasForeignKey("Code")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("category");
+                });
+
+            modelBuilder.Entity("PersonalFinanceManagement.Database.Entities.TransactionEntity", b =>
+                {
+                    b.HasOne("PersonalFinanceManagement.Models.Category", "category")
+                        .WithMany()
+                        .HasForeignKey("Catcode");
+
+                    b.Navigation("category");
+                });
+
+            modelBuilder.Entity("PersonalFinanceManagement.Models.Transaction", b =>
+                {
+                    b.HasOne("PersonalFinanceManagement.Models.Category", "category")
+                        .WithMany()
+                        .HasForeignKey("Catcode");
+
+                    b.Navigation("category");
                 });
 #pragma warning restore 612, 618
         }

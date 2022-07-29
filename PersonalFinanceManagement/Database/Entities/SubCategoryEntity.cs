@@ -12,7 +12,7 @@ namespace PersonalFinanceManagement.Database.Entities
         public string ParentCode { get; set; }
         [Required]
         public string Name { get; set; }
-        [ForeignKey("ParentCode")]
+        [ForeignKey("Code")]
         public virtual Category category { get; set; }
     }
 }

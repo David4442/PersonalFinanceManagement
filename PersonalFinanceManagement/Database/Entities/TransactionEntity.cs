@@ -9,7 +9,7 @@ namespace PersonalFinanceManagement.Database.Entities
         [Required]
         public string Id { get; set; }
 
-        public string Beneficiaryname { get; set; }
+        public string? Beneficiaryname { get; set; }
         [Required]
         public string Date { get; set; }
         [Required]

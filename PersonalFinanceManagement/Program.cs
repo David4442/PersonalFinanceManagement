@@ -12,6 +12,7 @@ using System.Reflection;
 using CsvHelper;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using PersonalFinanceManagement.Database.Repository;
 
 namespace PersonalFinanceManagement
 {
@@ -26,8 +27,11 @@ namespace PersonalFinanceManagement
             
             builder.Services.AddScoped<ITransactionService, TransactionService>();
             builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
             var connectionString = builder.Configuration.GetConnectionString("cs");
-            builder.Services.AddDbContext<TransactionsDbContext>(options => options.UseSqlite(connectionString));
+            builder.Services.AddDbContext<TransactionsDbContext>(options => options.UseSqlite(connectionString).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking), ServiceLifetime.Scoped);
+            
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             builder.Services.AddControllers().AddJsonOptions(options =>

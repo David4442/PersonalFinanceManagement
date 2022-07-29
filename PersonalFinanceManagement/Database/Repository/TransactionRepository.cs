@@ -83,11 +83,11 @@ namespace PersonalFinanceManagement.Repository
                     foreach (var record in records)
                     {
 
-                        /* if (string.IsNullOrWhiteSpace(record.id))
-                         {
-                             break;
-                         }*/
-                        Transaction transaction;
+                    /* if (string.IsNullOrWhiteSpace(record.id))
+                     {
+                         break;
+                     }*/
+                    Transaction transaction;
                         transaction = _context.Transactions.Where(s => s.Id == record.Id).FirstOrDefault();
 
                         if (transaction == null)

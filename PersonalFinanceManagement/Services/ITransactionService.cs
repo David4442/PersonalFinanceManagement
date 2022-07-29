@@ -1,4 +1,5 @@
 ﻿using PagedList;
+using PersonalFinanceManagement.Database.Entities;
 using PersonalFinanceManagement.Models;
 
 namespace PersonalFinanceManagement.Services

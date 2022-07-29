@@ -52,7 +52,7 @@ namespace PersonalFinanceManagement.Controllers
         }
         [HttpGet]
         [Route("transactions")]
-        public async Task<IActionResult> GetProducts([FromQuery] string transactionKind, [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate, [FromQuery] int? page, [FromQuery] int? pageSize, [FromQuery] string sortBy, [FromQuery] SortOrderEnum sortOrder)
+        public async Task<IActionResult> GetTransactions([FromQuery] string transactionKind, [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate, [FromQuery] int? page, [FromQuery] int? pageSize, [FromQuery] string sortBy, [FromQuery] SortOrderEnum sortOrder)
         {
             page = page ?? 1;
             pageSize = pageSize ?? 10;

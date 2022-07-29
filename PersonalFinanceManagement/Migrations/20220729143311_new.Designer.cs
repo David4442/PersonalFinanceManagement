@@ -8,11 +8,11 @@ using PersonalFinanceManagement.Database;
 
 #nullable disable
 
-namespace PersonalFinanceManagement.Migrations.SubCategoriesDb
+namespace PersonalFinanceManagement.Migrations
 {
-    [DbContext(typeof(SubCategoriesDbContext))]
-    [Migration("20220727183254_initial")]
-    partial class initial
+    [DbContext(typeof(TransactionsDbContext))]
+    [Migration("20220729143311_new")]
+    partial class @new
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,7 +29,6 @@ namespace PersonalFinanceManagement.Migrations.SubCategoriesDb
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ParentCode")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Code");
@@ -52,8 +51,6 @@ namespace PersonalFinanceManagement.Migrations.SubCategoriesDb
 
                     b.HasKey("Code");
 
-                    b.HasIndex("ParentCode");
-
                     b.ToTable("subcategories", (string)null);
                 });
 
@@ -67,7 +64,6 @@ namespace PersonalFinanceManagement.Migrations.SubCategoriesDb
                         .HasColumnType("REAL");
 
                     b.Property<string>("Beneficiaryname")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Catcode")
@@ -121,11 +117,55 @@ namespace PersonalFinanceManagement.Migrations.SubCategoriesDb
                     b.ToTable("Category");
                 });
 
+            modelBuilder.Entity("PersonalFinanceManagement.Models.Transaction", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double?>("Amount")
+                        .IsRequired()
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("BeneficiaryName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Catcode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Direction")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Kind")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("Mcc")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Catcode");
+
+                    b.ToTable("Transactions");
+                });
+
             modelBuilder.Entity("PersonalFinanceManagement.Database.Entities.SubCategoryEntity", b =>
                 {
                     b.HasOne("PersonalFinanceManagement.Models.Category", "category")
                         .WithMany()
-                        .HasForeignKey("ParentCode")
+                        .HasForeignKey("Code")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -133,6 +173,15 @@ namespace PersonalFinanceManagement.Migrations.SubCategoriesDb
                 });
 
             modelBuilder.Entity("PersonalFinanceManagement.Database.Entities.TransactionEntity", b =>
+                {
+                    b.HasOne("PersonalFinanceManagement.Models.Category", "category")
+                        .WithMany()
+                        .HasForeignKey("Catcode");
+
+                    b.Navigation("category");
+                });
+
+            modelBuilder.Entity("PersonalFinanceManagement.Models.Transaction", b =>
                 {
                     b.HasOne("PersonalFinanceManagement.Models.Category", "category")
                         .WithMany()

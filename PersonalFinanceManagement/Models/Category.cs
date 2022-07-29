@@ -49,11 +49,9 @@ namespace PersonalFinanceManagement.Models
         /// Parent code if subcategory
         /// </summary>
         /// <value>Parent code if subcategory</value>
-        
-        
-        [DataMember(Name="parent-code")]
-        
+        [DataMember(Name="ParentCode")]
         public string ParentCode { get; set; }
+        
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -67,7 +65,7 @@ namespace PersonalFinanceManagement.Models
             sb.Append("class Category {\n");
             sb.Append("  Code: ").Append(Code).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  ParentCode: ").Append(ParentCode).Append("\n");
+           
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -103,22 +101,17 @@ namespace PersonalFinanceManagement.Models
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
 
-            return 
+            return
                 (
                     Code == other.Code ||
                     Code != null &&
                     Code.Equals(other.Code)
-                ) && 
+                ) &&
                 (
                     Name == other.Name ||
                     Name != null &&
                     Name.Equals(other.Name)
-                ) && 
-                (
-                    ParentCode == other.ParentCode ||
-                    ParentCode != null &&
-                    ParentCode.Equals(other.ParentCode)
-                );
+                ); 
         }
 
         /// <summary>
@@ -135,8 +128,8 @@ namespace PersonalFinanceManagement.Models
                     hashCode = hashCode * 59 + Code.GetHashCode();
                     if (Name != null)
                     hashCode = hashCode * 59 + Name.GetHashCode();
-                    if (ParentCode != null)
-                    hashCode = hashCode * 59 + ParentCode.GetHashCode();
+                   
+                   
                 return hashCode;
             }
         }
